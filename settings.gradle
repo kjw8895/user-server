@@ -1,0 +1,6 @@
+rootProject.name = 'user-server'
+include 'user-common'
+include 'user-core'
+include 'user-api:user-api-common'
+include 'user-api:user-api-master'
+
