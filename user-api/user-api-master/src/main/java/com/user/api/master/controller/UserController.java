@@ -1,22 +1,25 @@
 package com.user.api.master.controller;
 
-import com.user.common.annotation.CurrentUser;
-import com.user.common.application.dto.UserInfo;
+import com.user.api.master.application.dto.UserDto;
+import com.user.api.master.facade.UserFacade;
+import com.user.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/user")
 public class UserController {
+    private final UserFacade facade;
 
-    @GetMapping(value = "/test")
-    public void test(@CurrentUser UserInfo user) {
-        System.out.println("test");
-    }
+    @PostMapping
+    public ResponseEntity<CommonResponse<UserDto.Response>> createUser(@RequestBody UserDto.Request request) {
+        UserDto.Response response = facade.createUser(request);
 
-    @GetMapping(value = "/public")
-    public void testv2(@CurrentUser UserInfo user) {
-        System.out.println("testv2");
+        return CommonResponse.ok(response);
     }
 }

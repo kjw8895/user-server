@@ -19,7 +19,13 @@ public class UserRoleEntity {
     private UserEntity user;
 
     @MapsId("roleId")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private RoleEntity role;
+
+    public UserRoleEntity(UserEntity user, RoleEntity role) {
+        this.id = new UserRoleId(user.getId(), role.getId());
+        this.user = user;
+        this.role = role;
+    }
 }

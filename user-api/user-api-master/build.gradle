@@ -13,6 +13,7 @@ dependencies {
     implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation("org.springframework.security:spring-security-crypto:6.1.4")
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 
     runtimeOnly "software.aws.rds:aws-mysql-jdbc:$awsMysqlJdbcVer"
