@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/user")
+@RequestMapping
 public class UserController {
     private final UserFacade facade;
 
-    @PostMapping
+    @PostMapping(value = "/sign-up")
     public ResponseEntity<CommonResponse<UserDto.Response>> createUser(@RequestBody UserDto.Request request) {
         UserDto.Response response = facade.createUser(request);
 
