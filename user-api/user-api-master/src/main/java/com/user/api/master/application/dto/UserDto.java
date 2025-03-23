@@ -1,5 +1,6 @@
 package com.user.api.master.application.dto;
 
+import com.user.core.application.dto.UserNameDto;
 import com.user.core.application.command.UserCommand;
 import com.user.core.domain.UserEntity;
 import lombok.AccessLevel;
@@ -30,6 +31,7 @@ public abstract class UserDto {
     @AllArgsConstructor
     public static class Response {
         private Long id;
+        private UserNameDto name;
         private String email;
         private String phone;
         private List<RoleDto> roles;
@@ -37,7 +39,9 @@ public abstract class UserDto {
         public static Response toDto(UserEntity entity) {
             Response response = new Response();
             response.id = entity.getId();
+            response.name = UserNameDto.toDto(entity.getName());
             response.email = entity.getEmail();
+            response.phone = entity.getPhone();
             response.roles = entity.getRoleEntities().stream().map(RoleDto::toDto).toList();
 
             return response;
