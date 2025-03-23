@@ -4,8 +4,11 @@ import com.user.api.master.application.dto.UserDto;
 import com.user.api.master.facade.UserFacade;
 import com.user.api.master.service.RoleService;
 import com.user.api.master.service.UserService;
+import com.user.client.redisson.service.RedissonClientService;
+import com.user.common.application.dto.SmsVerificationDto;
 import com.user.common.code.CommonExceptionCode;
 import com.user.common.exception.CommonException;
+import com.user.common.utils.ObjectMapperUtils;
 import com.user.core.application.command.UserCommand;
 import com.user.core.domain.RoleEntity;
 import com.user.core.domain.UserEntity;
@@ -20,10 +23,21 @@ import java.util.Optional;
 public class UserFacadeImpl implements UserFacade {
     private final UserService userService;
     private final RoleService roleService;
+    private final RedissonClientService redissonClientService;
 
     @Override
     @Transactional
     public UserDto.Response createUser(UserDto.Request request) {
+        Object message = redissonClientService.get(request.getPhone());
+        if (message == null) {
+            throw new CommonException(CommonExceptionCode.INVALID_REQUEST);
+        }
+
+        SmsVerificationDto value = ObjectMapperUtils.readValue(message.toString(), SmsVerificationDto.class);
+        if (!value.verify()) {
+            throw new CommonException(CommonExceptionCode.INVALID_REQUEST);
+        }
+
         UserCommand command = request.toCommand();
 
         Optional<UserEntity> exists = userService.findByEmail(request.getEmail());
