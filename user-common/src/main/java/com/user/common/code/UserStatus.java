@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum UserStatus implements CodeEnum {
-    ACTIVATE("ACTIVATE"),
+    ACTIVATION("ACTIVATION"),
+    SUSPENDED("SUSPENDED"),
     DORMANCY("DORMANCY"),
     WITHDRAWAL("WITHDRAWAL");
 

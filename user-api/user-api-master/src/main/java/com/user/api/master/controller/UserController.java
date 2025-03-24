@@ -5,10 +5,7 @@ import com.user.api.master.facade.UserFacade;
 import com.user.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +18,22 @@ public class UserController {
         UserDto.Response response = facade.createUser(request);
 
         return CommonResponse.ok(response);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CommonResponse<UserDto.Response>> updateUser(@PathVariable Long id, @RequestBody UserDto.Request request) {
+        return null;
+    }
+
+    @PutMapping(value = "/{id}/suspend")
+    public ResponseEntity<CommonResponse<Boolean>> suspend(@PathVariable Long id) {
+        boolean result = facade.suspend(id);
+
+        return CommonResponse.ok(result);
+    }
+
+    @PutMapping(value = "/{id}/withdrawal")
+    public ResponseEntity<CommonResponse<Boolean>> withdrawal(@PathVariable Long id) {
+        return null;
     }
 }

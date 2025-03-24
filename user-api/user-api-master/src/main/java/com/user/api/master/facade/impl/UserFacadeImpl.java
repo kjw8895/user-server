@@ -4,6 +4,7 @@ import com.user.api.master.application.dto.UserDto;
 import com.user.api.master.facade.UserFacade;
 import com.user.api.master.service.RoleService;
 import com.user.api.master.service.UserService;
+import com.user.api.master.service.UserStatusHistoryService;
 import com.user.client.redisson.service.RedissonClientService;
 import com.user.common.application.dto.SmsVerificationDto;
 import com.user.common.code.CommonExceptionCode;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public class UserFacadeImpl implements UserFacade {
     private final UserService userService;
     private final RoleService roleService;
+    private final UserStatusHistoryService userStatusHistoryService;
     private final RedissonClientService redissonClientService;
 
     @Override
@@ -50,6 +52,19 @@ public class UserFacadeImpl implements UserFacade {
 
         user.addRole(role);
 
+        userStatusHistoryService.create(user, user.getStatus());
+
         return UserDto.Response.toDto(user);
+    }
+
+    @Override
+    @Transactional
+    public boolean suspend(Long id) {
+        UserEntity user = userService.findById(id).orElseThrow(() -> new CommonException(CommonExceptionCode.INVALID_REQUEST));
+        user.suspend();
+
+        userStatusHistoryService.create(user, user.getStatus());
+
+        return true;
     }
 }

@@ -35,7 +35,7 @@ public class UserEntity extends BaseEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.ACTIVATE;
+    private UserStatus status = UserStatus.ACTIVATION;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserRoleEntity> roles = new HashSet<>();
@@ -46,6 +46,10 @@ public class UserEntity extends BaseEntity {
 
     public void addRole(RoleEntity role) {
         this.roles.add(new UserRoleEntity(this, role));
+    }
+
+    public void suspend() {
+        this.status = UserStatus.SUSPENDED;
     }
 
     public static UserEntity toEntity(UserCommand command, String encryptedPassword) {
