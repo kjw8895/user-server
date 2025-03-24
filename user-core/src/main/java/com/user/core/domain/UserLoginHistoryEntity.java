@@ -1,25 +1,24 @@
 package com.user.core.domain;
 
-import com.user.common.code.RoleType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "USER_LOGIN_HISTORY")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RoleEntity extends BaseEntity {
+public class UserLoginHistoryEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-    @Column(name = "type")
-    @Enumerated(value = EnumType.STRING)
-    private RoleType type;
+    @Column(name = "access_ip")
+    private String accessIp;
 }
