@@ -1,6 +1,8 @@
 package com.user.api.master.service.impl;
 
 import com.user.api.master.service.UserService;
+import com.user.common.code.CommonExceptionCode;
+import com.user.common.exception.CommonException;
 import com.user.core.application.command.UserCommand;
 import com.user.core.domain.UserEntity;
 import com.user.core.repository.UserEntityRepository;
@@ -33,5 +35,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserEntity createUser(UserCommand command) {
         return userEntityRepository.save(UserEntity.toEntity(command, passwordEncoder.encode(command.getPassword())));
+    }
+
+    @Override
+    @Transactional
+    public UserEntity updateUser(Long id, UserCommand command) {
+        UserEntity user = userEntityRepository.findById(id).orElseThrow(() -> new CommonException(CommonExceptionCode.INVALID_REQUEST));
+        user.update(command);
+
+        return userEntityRepository.save(user);
     }
 }

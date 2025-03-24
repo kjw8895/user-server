@@ -22,7 +22,9 @@ public class UserController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<CommonResponse<UserDto.Response>> updateUser(@PathVariable Long id, @RequestBody UserDto.Request request) {
-        return null;
+        UserDto.Response response = facade.updateUser(id, request);
+
+        return CommonResponse.ok(response);
     }
 
     @PutMapping(value = "/{id}/suspend")

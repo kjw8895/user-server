@@ -9,4 +9,5 @@ public interface UserService {
     Optional<UserEntity> findById(Long id);
     Optional<UserEntity> findByEmail(String email);
     UserEntity createUser(UserCommand command);
+    UserEntity updateUser(Long id, UserCommand command);
 }

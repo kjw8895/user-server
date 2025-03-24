@@ -48,6 +48,10 @@ public class UserEntity extends BaseEntity {
         this.roles.add(new UserRoleEntity(this, role));
     }
 
+    public void update(UserCommand command) {
+        this.phone = command.getPhone() == null ? this.phone : command.getPhone();
+    }
+
     public void suspend() {
         this.status = UserStatus.SUSPENDED;
     }

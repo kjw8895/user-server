@@ -59,6 +59,14 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     @Transactional
+    public UserDto.Response updateUser(Long id, UserDto.Request request) {
+        UserEntity user = userService.updateUser(id, request.toCommand());
+
+        return UserDto.Response.toDto(user);
+    }
+
+    @Override
+    @Transactional
     public boolean suspend(Long id) {
         UserEntity user = userService.findById(id).orElseThrow(() -> new CommonException(CommonExceptionCode.INVALID_REQUEST));
         user.suspend();
