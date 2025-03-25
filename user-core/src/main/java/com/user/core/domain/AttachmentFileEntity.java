@@ -18,12 +18,16 @@ public class AttachmentFileEntity extends BaseEntity {
     @Column(name = "file_name")
     private String fileName;
 
+    @Column(name = "origin_file_name")
+    private String originFileName;
+
     @Column(name = "resource_url")
     private String url;
 
-    public static AttachmentFileEntity toEntity(String fileName, String url) {
+    public static AttachmentFileEntity toEntity(String fileName, String originFileName, String url) {
         AttachmentFileEntity entity = new AttachmentFileEntity();
         entity.fileName = fileName;
+        entity.originFileName = originFileName;
         entity.url = url;
 
         return entity;
