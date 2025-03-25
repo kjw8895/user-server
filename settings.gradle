@@ -4,4 +4,5 @@ include 'user-core'
 include 'user-api:user-api-common'
 include 'user-api:user-api-master'
 include 'user-client:redisson'
+include 'user-client:aws-s3'
 
