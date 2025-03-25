@@ -12,6 +12,7 @@ public class AwsS3Properties {
     private String region;
     private String bucket;
     private String attachmentPath;
+    private String baseUrl;
 
     public String getPath(String fileName) {
         return String.format("%s/%s", attachmentPath, fileName);

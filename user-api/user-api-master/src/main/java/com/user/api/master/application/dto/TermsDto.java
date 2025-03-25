@@ -19,6 +19,11 @@ public abstract class TermsDto {
     @AllArgsConstructor
     public static class Response {
         private Long id;
-        private Long attachmentFileId;
+        private TermsType type;
+        private String resourceUrl;
+
+        public static Response toResponse(Long id, TermsType type, String resourceUrl) {
+            return new Response(id, type, resourceUrl);
+        }
     }
 }

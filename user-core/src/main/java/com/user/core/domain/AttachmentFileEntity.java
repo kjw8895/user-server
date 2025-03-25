@@ -24,6 +24,10 @@ public class AttachmentFileEntity extends BaseEntity {
     @Column(name = "resource_url")
     private String url;
 
+    public String getFullUrl(String baseUrl) {
+        return String.format("%s/%s", baseUrl, url);
+    }
+
     public static AttachmentFileEntity toEntity(String fileName, String originFileName, String url) {
         AttachmentFileEntity entity = new AttachmentFileEntity();
         entity.fileName = fileName;

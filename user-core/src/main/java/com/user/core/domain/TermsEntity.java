@@ -16,16 +16,17 @@ public class TermsEntity extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "attachment_file_id")
-    private Long attachmentFileId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attachment_file_id")
+    private AttachmentFileEntity attachmentFile;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private TermsType type;
 
-    public static TermsEntity toEntity(TermsType type, Long attachmentFileId) {
+    public static TermsEntity toEntity(TermsType type, AttachmentFileEntity attachmentFile) {
         TermsEntity entity = new TermsEntity();
-        entity.attachmentFileId = attachmentFileId;
+        entity.attachmentFile = attachmentFile;
         entity.type = type;
 
         return entity;

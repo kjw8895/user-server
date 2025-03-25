@@ -37,9 +37,9 @@ public class AttachmentFileServiceImpl implements AttachmentFileService {
     public AttachmentFileEntity create(MultipartFile file) {
         try {
             String timestamp = LocalDateTime.now().format(DefaultDateTimeFormatUtils.DATE_TIME_FILE_NAME_FORMAT);
-            String fileName = String.format("%s_%s", timestamp, file.getName());
+            String fileName = String.format("%s_%s", timestamp, file.getOriginalFilename());
 
-            AttachmentFileEntity attachmentFile = AttachmentFileEntity.toEntity(fileName, file.getName(), awsS3Properties.getPath(file.getName()));
+            AttachmentFileEntity attachmentFile = AttachmentFileEntity.toEntity(fileName, file.getOriginalFilename(), awsS3Properties.getPath(fileName));
             attachmentFileEntityRepository.save(attachmentFile);
 
             ObjectMetadata metadata = new ObjectMetadata();
