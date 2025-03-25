@@ -10,14 +10,25 @@ import lombok.NoArgsConstructor;
 @Table(name = "TERMS")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TermsEntity {
+public class TermsEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "attachment_file_id")
+    private Long attachmentFileId;
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private TermsType type;
+
+    public static TermsEntity toEntity(TermsType type, Long attachmentFileId) {
+        TermsEntity entity = new TermsEntity();
+        entity.attachmentFileId = attachmentFileId;
+        entity.type = type;
+
+        return entity;
+    }
 
 }

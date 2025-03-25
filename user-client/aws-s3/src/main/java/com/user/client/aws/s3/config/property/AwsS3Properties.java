@@ -10,24 +10,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AwsS3Properties {
     private Credential credential;
     private String region;
-    private S3 s3;
+    private String bucket;
+    private String attachmentPath;
 
-    public String fullPath() {
-        return String.format("%s/%s", s3.bucket, s3.defaultFolder);
+    public String getPath(String fileName) {
+        return String.format("%s/%s", attachmentPath, fileName);
     }
 
     @Getter
     @Setter
     public static class Credential {
-        private boolean enabled = true;
+        private boolean enabled;
         private String accessKey;
         private String secretKey;
-    }
-
-    @Getter
-    @Setter
-    public static class S3 {
-        private String bucket;
-        private String defaultFolder;
     }
 }

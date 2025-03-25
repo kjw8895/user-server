@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "ATTACHMENT_FILE")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AttachmentFileEntity {
+public class AttachmentFileEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -20,4 +20,12 @@ public class AttachmentFileEntity {
 
     @Column(name = "resource_url")
     private String url;
+
+    public static AttachmentFileEntity toEntity(String fileName, String url) {
+        AttachmentFileEntity entity = new AttachmentFileEntity();
+        entity.fileName = fileName;
+        entity.url = url;
+
+        return entity;
+    }
 }
