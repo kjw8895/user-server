@@ -3,6 +3,7 @@ dependencies {
     implementation project(':user-core')
     implementation project(':user-api:user-api-common')
     implementation project(':user-client:redisson')
+    implementation project(':user-client:aws-s3')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
