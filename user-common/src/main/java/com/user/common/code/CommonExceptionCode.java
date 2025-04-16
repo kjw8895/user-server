@@ -18,11 +18,12 @@ public enum CommonExceptionCode implements ExceptionCodeEnum {
     INVALID_API_KEY(1009, "Invalid api key", HttpStatus.BAD_REQUEST),
     MISSING_API_KEY(1010, "Api key is required", HttpStatus.BAD_REQUEST),
     CLIENT_NOT_FOUND(1011, "not found client", HttpStatus.BAD_REQUEST),
-    USER_ALREADY_EXISTS(1012, "Email already exists", HttpStatus.BAD_REQUEST);
+    USER_ALREADY_EXISTS(1012, "Email already exists", HttpStatus.BAD_REQUEST),
+    PASSWORD_NOT_MATCH(1012, "Password doesn't match", HttpStatus.BAD_REQUEST),;
 
-    private int code;
-    private String msg;
-    private HttpStatus httpStatus;
+    private final int code;
+    private final String msg;
+    private final HttpStatus httpStatus;
 
     CommonExceptionCode(int code, String msg, HttpStatus httpStatus) {
         this.code = code;

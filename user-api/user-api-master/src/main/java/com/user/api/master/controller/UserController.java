@@ -1,6 +1,7 @@
 package com.user.api.master.controller;
 
 import com.user.api.master.application.dto.UserDto;
+import com.user.api.master.application.dto.UserUpdateDto;
 import com.user.api.master.facade.UserFacade;
 import com.user.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,21 @@ public class UserController {
         return CommonResponse.ok(response);
     }
 
-    @PutMapping(value = "/{id}/suspend")
+    @PatchMapping(value = "/{id}/password")
+    public ResponseEntity<CommonResponse<Boolean>> updatePassword(@PathVariable Long id, @RequestBody UserUpdateDto request) {
+        boolean result = facade.updatePassword(id, request);
+
+        return CommonResponse.ok(result);
+    }
+
+    @PatchMapping(value = "/{id}/suspend")
     public ResponseEntity<CommonResponse<Boolean>> suspend(@PathVariable Long id) {
         boolean result = facade.suspend(id);
 
         return CommonResponse.ok(result);
     }
 
-    @PutMapping(value = "/{id}/withdrawal")
+    @PatchMapping(value = "/{id}/withdrawal")
     public ResponseEntity<CommonResponse<Boolean>> withdrawal(@PathVariable Long id) {
         return null;
     }

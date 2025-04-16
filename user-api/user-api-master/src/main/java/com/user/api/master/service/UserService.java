@@ -10,4 +10,5 @@ public interface UserService {
     Optional<UserEntity> findByEmail(String email);
     UserEntity createUser(UserCommand command);
     UserEntity updateUser(Long id, UserCommand command);
+    boolean updatePassword(Long id, String oldPassword, String newPassword);
 }

@@ -52,6 +52,10 @@ public class UserEntity extends BaseEntity {
         this.phone = command.getPhone() == null ? this.phone : command.getPhone();
     }
 
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
     public void suspend() {
         this.status = UserStatus.SUSPENDED;
     }

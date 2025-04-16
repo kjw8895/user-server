@@ -45,4 +45,17 @@ public class UserServiceImpl implements UserService {
 
         return userEntityRepository.save(user);
     }
+
+    @Override
+    @Transactional
+    public boolean updatePassword(Long id, String oldPassword, String newPassword) {
+        UserEntity user = userEntityRepository.findById(id).orElseThrow(() -> new CommonException(CommonExceptionCode.INVALID_REQUEST));
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new CommonException(CommonExceptionCode.PASSWORD_NOT_MATCH);
+        }
+
+        user.updatePassword(passwordEncoder.encode(newPassword));
+        userEntityRepository.save(user);
+        return true;
+    }
 }

@@ -1,6 +1,7 @@
 package com.user.api.master.facade.impl;
 
 import com.user.api.master.application.dto.UserDto;
+import com.user.api.master.application.dto.UserUpdateDto;
 import com.user.api.master.facade.UserFacade;
 import com.user.api.master.service.RoleService;
 import com.user.api.master.service.UserService;
@@ -63,6 +64,11 @@ public class UserFacadeImpl implements UserFacade {
         UserEntity user = userService.updateUser(id, request.toCommand());
 
         return UserDto.Response.toDto(user);
+    }
+
+    @Override
+    public boolean updatePassword(Long id, UserUpdateDto request) {
+        return userService.updatePassword(id, request.getOldPassword(), request.getNewPassword());
     }
 
     @Override
